@@ -1,6 +1,6 @@
 {
     "VoilaConfiguration": {
         "enable_nbextensions": true,
-        "template": "material"
+        "template": "materialstream"
     }
 }

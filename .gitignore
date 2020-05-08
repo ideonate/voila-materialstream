@@ -1,3 +1,6 @@
 .ipynb_checkpoints/*
-voila_material.egg-info/*
+*.egg-info/*
 dist/*
+.vscode/
+
+

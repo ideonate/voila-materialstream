@@ -49,7 +49,7 @@ def user_dir():
 
 class DevelopCmd(develop):
     prefix_targets = [
-        ("voila/templates", 'material')
+        ("voila/templates", 'materialstream')
     ]
     def run(self):
         target_dir = os.path.join(sys.prefix, 'share', 'jupyter')
@@ -83,15 +83,15 @@ for (dirpath, dirnames, filenames) in os.walk('share/jupyter/voila/templates/'):
 
 
 setup(
-    name='voila-material',
+    name='voila-materialstream',
     version="0.2.5",
-    description="Material design template for voila",
+    description="Material design template for voila, updated for Ideonate",
     data_files=data_files,
     include_package_data=True,
     author='Martin Renou',
     author_email='martin.renou@gmail.com',
     install_requires=['voila>=0.1.14'],
-    url='https://github.com/martinRenou/voila-material',
+    url='https://github.com/ideonate/voila-materialstream',
     keywords=[
         'ipython',
         'jupyter',

@@ -22,9 +22,29 @@
     overflow-y: scroll;
   }
 
+  .top-nav {
+    height: 5px;
+  }
+
   .nav-wrapper {
     background-color: {{ bar_color }};
   }
+
+  .nav-wrapper.running {
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+  0% {
+    background-color: {{ bar_color }};
+  }
+  50% {
+    background-color: lightgrey;
+  }
+  100% {
+    background-color: {{ bar_color }};
+  }
+}
 
   .brand-logo {
     height: 90%;
@@ -110,12 +130,12 @@ a.anchor-link {
     <div class="spinner-container">
       <svg class="spinner" data-name="c1" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><metadata><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/><dc:title>voila</dc:title></cc:Work></rdf:RDF></metadata><title>spin</title><path class="voila-spinner-color1" d="m250 405c-85.47 0-155-69.53-155-155s69.53-155 155-155 155 69.53 155 155-69.53 155-155 155zm0-275.5a120.5 120.5 0 1 0 120.5 120.5 120.6 120.6 0 0 0-120.5-120.5z"/><path class="voila-spinner-color2" d="m250 405c-85.47 0-155-69.53-155-155a17.26 17.26 0 1 1 34.51 0 120.6 120.6 0 0 0 120.5 120.5 17.26 17.26 0 1 1 0 34.51z"/></svg>
     </div>
-    <h5 id="loading_text">Running {{nb_title}}...</h5>
+    <h5 id="loading_text">Loading {{nb_title}}...</h5>
   </div>
 <script>
 var voila_process = function(cell_index, cell_count) {
   var el = document.getElementById("loading_text")
-  el.innerHTML = `Executing ${cell_index} of ${cell_count}`
+  el.innerHTML = `Loading ${cell_index} of ${cell_count}`
 }
 </script>
 
@@ -126,12 +146,12 @@ var voila_process = function(cell_index, cell_count) {
     <div class="navbar-fixed">
       <nav class="top-nav">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo-container">
+          <!-- a href="#!" class="brand-logo-container">
             <object class="brand-logo" type="image/svg+xml" data="{{ resources.base_url }}voila/static/voila_logo.svg"></object>
-          </a>
-          <ul class="right">
+          </a -->
+          <!-- ul class="right">
             <li><a href="#"><i class="material-icons" id="kernel-status-icon">radio_button_unchecked</i></a></li>
-          </ul>
+          </ul -->
         </div>
       </nav>
     </div>
@@ -199,14 +219,16 @@ var voila_process = function(cell_index, cell_count) {
         var kernel = await voila.connectKernel();
 
         kernel.statusChanged.connect(() => {
-          // console.log(kernel.status);
-          var el = document.getElementById("kernel-status-icon");
+          var els = document.getElementsByClassName("nav-wrapper");
 
-          if (kernel.status == 'busy') {
-            el.innerHTML = 'radio_button_checked';
-          } else {
-            el.innerHTML = 'radio_button_unchecked';
+          for (var i = 0; i < els.length; i++) {
+            if (kernel.status == 'busy') {
+              els[i].classList.add("running");
+            } else {
+              els[i].classList.remove("running");
+            }
           }
+
         });
       })();
     });

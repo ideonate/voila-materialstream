@@ -1,7 +1,7 @@
-name: voila-material
+name: voila-materialstream
 channels:
   - conda-forge
 dependencies:
   - ipywidgets=7.5.1
   - bqplot
-  - voila=0.1.12
+  - voila=0.1.14
