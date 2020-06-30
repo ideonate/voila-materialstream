@@ -84,13 +84,17 @@ for (dirpath, dirnames, filenames) in os.walk('share/jupyter/voila/templates/'):
 
 setup(
     name='voila-materialstream',
-    version="0.2.5",
+    version="0.2.6",
     description="Material design template for voila, updated for Ideonate",
     data_files=data_files,
     include_package_data=True,
     author='Martin Renou',
     author_email='martin.renou@gmail.com',
-    install_requires=['voila>=0.1.14'],
+    extras_require={
+        'voila': [
+            'voila>=0.1.14'
+            ]
+        },
     url='https://github.com/ideonate/voila-materialstream',
     keywords=[
         'ipython',
