@@ -1,0 +1,66 @@
+{%- extends 'nbconvert/templates/materialstream/index.html.j2' -%}
+
+{%- block html_head_css -%}
+{{ super() }}
+<style>
+  /* unhide the icon */
+  #kernel-status-icon {
+    display: unset;
+  }
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url("{{ resources.include_url("static/icons_font.ttf") }}") format('truetype');
+  }
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+  }
+  /* Workaround for the Select/Dropdown widgets to be visible: */
+  select {
+    display: block;
+  }
+  /* Workaround for the RadioButtons widgets to be visible: */
+  [type="radio"]:not(:checked), [type="radio"]:checked {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+{%- endblock html_head_css -%}
+
+
+{% block footer_js %}
+  {{ super() }}
+  <script type="text/javascript">
+    requirejs(['static/voila'], function(voila) {
+      (async function() {
+        var kernel = await voila.connectKernel();
+        kernel.statusChanged.connect(() => {
+
+          var els = document.getElementsByClassName("nav-wrapper");
+          for (var i = 0; i < els.length; i++) {
+            if (kernel.status == 'busy') {
+              els[i].classList.add("running");
+            } else {
+              els[i].classList.remove("running");
+            }
+          }
+
+        });
+      })();
+    });
+  </script>
+{% endblock footer_js %}
+

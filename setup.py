@@ -49,6 +49,7 @@ def user_dir():
 
 class DevelopCmd(develop):
     prefix_targets = [
+        ("nbconvert/templates", 'materialstream'),
         ("voila/templates", 'materialstream')
     ]
     def run(self):
@@ -77,14 +78,14 @@ class DevelopCmd(develop):
 # WARNING: all files generates during setup.py will not end up in the source distribution
 data_files = []
 # Add all the templates
-for (dirpath, dirnames, filenames) in os.walk('share/jupyter/voila/templates/'):
+for (dirpath, dirnames, filenames) in os.walk('share/jupyter/'):
     if filenames:
         data_files.append((dirpath, [os.path.join(dirpath, filename) for filename in filenames]))
 
 
 setup(
     name='voila-materialstream',
-    version="0.2.6",
+    version="0.4.0-beta1",
     description="Material design template for voila, updated for Ideonate",
     data_files=data_files,
     include_package_data=True,
@@ -92,7 +93,7 @@ setup(
     author_email='martin.renou@gmail.com',
     extras_require={
         'voila': [
-            'voila>=0.1.14'
+            'voila>=0.2.0'
             ]
         },
     url='https://github.com/ideonate/voila-materialstream',
