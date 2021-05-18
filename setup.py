@@ -85,7 +85,7 @@ for (dirpath, dirnames, filenames) in os.walk('share/jupyter/'):
 
 setup(
     name='voila-materialstream',
-    version="0.4.0-beta1",
+    version="0.4.0-beta2",
     description="Material design template for voila, updated for Ideonate",
     data_files=data_files,
     include_package_data=True,
